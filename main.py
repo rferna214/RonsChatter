@@ -6,7 +6,7 @@ import requests
 try:
     count = int(input("Put in a number to loop?"))
 except:
-    print("This shit wont work")
+    print("Error!!! dont put that in!!!")
     exit()
 
 if count > 10:
