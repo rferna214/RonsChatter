@@ -27,8 +27,7 @@ for i in range(count):
     first_name = user["name"]["first"]
     last_name = user["name"]["last"]
     country = user["location"]["country"]
-    age = user["dob"]["age"]
-    status = user["dob"]["age"]
+    age = user["dob"]["age"] 
 
     if age < 18:
         status ="Minor"
