@@ -1,6 +1,22 @@
 import requests
 
-for i in range(3):
+#Exit stops the page from executing. kinda like a break
+
+
+try:
+    count = int(input("Put in a number to loop?"))
+except:
+    print("This shit wont work")
+    exit()
+
+if count > 10:
+    print("Nope!!!!")
+    exit()
+
+
+print(count)
+
+for i in range(count):
     response = requests.get("https://randomuser.me/api/")
     data = response.json()
 
@@ -23,6 +39,7 @@ for i in range(3):
         print(f"Age: {age} ") 
         print(f"Status: {status} ") 
         print("\n-----\n")
- 
+
+
 
 
