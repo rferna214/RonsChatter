@@ -34,11 +34,13 @@ for i in range(count):
         status ="Minor"
     else:
         status = "Adult"
-        print(f"Name: {first_name} {last_name}")
-        print(f"Country: {country} ")
-        print(f"Age: {age} ") 
-        print(f"Status: {status} ") 
-        print("\n-----\n")
+
+
+    print(f"Name: {first_name} {last_name}")
+    print(f"Country: {country} ")
+    print(f"Age: {age} ") 
+    print(f"Status: {status} ") 
+    print("\n-----\n")
 
 
 
