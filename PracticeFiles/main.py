@@ -1,4 +1,5 @@
 import requests
+import json
 
 #Exit stops the page from executing. kinda like a break
 
@@ -61,6 +62,11 @@ for i in range(count):
     #    status ="Minor"
     #else:
     #    status = "Adult"
+ 
+
+
+
+
 
     print(f"Name: {formatted_user['first_name']} {formatted_user['last_name']}")
     print(f"Country: {formatted_user['country']} ")
@@ -74,3 +80,5 @@ with open("user.txt", "w") as file:
         file.write(f"{user['country']}, ") 
         file.write(f"{user['age']}, ") 
         file.write(f"{user['status']}") 
+
+

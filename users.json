@@ -1,0 +1,16 @@
+[
+    {
+        "first_name": "Dev",
+        "last_name": "Suvarna",
+        "country": "India",
+        "age": 74,
+        "status": "Adult"
+    },
+    {
+        "first_name": "\u0633\u062a\u0627\u06cc\u0634",
+        "last_name": "\u0642\u0627\u0633\u0645\u06cc",
+        "country": "Iran",
+        "age": 37,
+        "status": "Adult"
+    }
+]
