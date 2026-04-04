@@ -1,3 +1,4 @@
+#This page gets teh users from the api 
 import json
 from urllib.request import urlopen
 
