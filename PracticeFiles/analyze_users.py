@@ -1,3 +1,4 @@
+#Seperated into 2 files
 import json 
 
 with open("users.json", "r") as file:
