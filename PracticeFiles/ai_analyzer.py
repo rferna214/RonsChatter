@@ -14,26 +14,32 @@ client = Anthropic(api_key=api_key)
 with open("users.json", "r") as file:
     users = json.load(file)
 
-response = client.messages.create(
-    model="claude-3-haiku-20240307",
-    max_tokens=500,
-    messages=[
-        {
-            "role": "user",
-            "content": f"""
-You are a professional data analyst.
+while True:
+    question = input("\nAsk a question (type 'exit' to quit): ")
+    if question.lower() == "exit":
+        break
 
-Analyze this dataset and provide:
-- total users
-- adults vs minors
-- average age
-- interesting insights
+    response = client.messages.create(
+        model="claude-3-haiku-20240307",
+        max_tokens=500,
+        messages=[
+            {
+                "role": "user",
+                "content": f"""
+    You are a strict data analyst.
 
-Data:
-{users}
-"""
-        }
-    ]
-)
+    Only answer using the provided data.
+    If the answer is not in the data, say "Not Found".
 
-print(response.content[0].text)
+    Question:
+    {question}
+
+    Data:
+    {users}
+    """
+            }
+        ]
+    )
+
+    print("\nAI Response:\n")
+    print(response.content[0].text)
