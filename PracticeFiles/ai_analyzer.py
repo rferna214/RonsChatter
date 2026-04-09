@@ -28,7 +28,8 @@ while True:
                 "content": f"""
     You are a strict data analyst.
 
-    Only answer using the provided data.
+    Only answer using the provided data. 
+    make sure to sound very casual when answering.
     If the answer is not in the data, say "Not Found".
 
     Question:
