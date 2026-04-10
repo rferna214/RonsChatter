@@ -1,0 +1,37 @@
+[
+    {
+        "first_name": "Raymond",
+        "last_name": "Silva",
+        "country": "United States",
+        "age": 44,
+        "status": "Adult"
+    },
+    {
+        "first_name": "Miriam",
+        "last_name": "Pati\u00f1o",
+        "country": "Mexico",
+        "age": 59,
+        "status": "Adult"
+    },
+    {
+        "first_name": "Jeppe",
+        "last_name": "Olsen",
+        "country": "Denmark",
+        "age": 45,
+        "status": "Adult"
+    },
+    {
+        "first_name": "Gabriel",
+        "last_name": "Jean-Baptiste",
+        "country": "Canada",
+        "age": 58,
+        "status": "Adult"
+    },
+    {
+        "first_name": "Raj",
+        "last_name": "Dsouza",
+        "country": "India",
+        "age": 64,
+        "status": "Adult"
+    }
+]

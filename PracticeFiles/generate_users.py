@@ -50,5 +50,8 @@ for i in range(count):
     print(f"Status: {formatted_user['status']}")
     print("\n-----\n")
 
-with open("users.json", "w") as file:
+with open("project/users.json", "w") as file:
     json.dump(users_list, file, indent=4)
+
+
+    

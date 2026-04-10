@@ -1,0 +1,30 @@
+[
+    {
+        "first_name": "Elli",
+        "last_name": "Lehtinen",
+        "country": "Finland",
+        "age": 50,
+        "status": "Adult"
+    },
+    {
+        "first_name": "Sofian",
+        "last_name": "Kamper",
+        "country": "Netherlands",
+        "age": 40,
+        "status": "Adult"
+    },
+    {
+        "first_name": "Sanchitha",
+        "last_name": "Uchil",
+        "country": "India",
+        "age": 73,
+        "status": "Adult"
+    },
+    {
+        "first_name": "Edinalva",
+        "last_name": "da Cunha",
+        "country": "Brazil",
+        "age": 36,
+        "status": "Adult"
+    }
+]

@@ -11,7 +11,7 @@ api_key = os.getenv("ANTHROPIC_API_KEY")
 
 client = Anthropic(api_key=api_key)
 
-with open("users.json", "r") as file:
+with open("project/users.json", "r") as file:
     users = json.load(file)
 
 while True:
