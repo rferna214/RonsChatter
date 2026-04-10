@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI User Analyzer</title>
+</head>
+<body>
+    <h1>Ask About Your Users</h1>
+
+    <form method="POST">
+        <textarea name="question"></textarea>
+        <button type="submit">Ask</button>
+    </form>
+
+    {% if response %}
+        <h2>Response:</h2>
+        <p>{{ response }}</p>
+    {% endif %}
+</body>
+</html>
