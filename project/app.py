@@ -3,6 +3,8 @@ from anthropic import Anthropic
 import json
 import os
 from dotenv import load_dotenv
+    
+chat_history = []
 
 load_dotenv()
 
@@ -21,32 +23,41 @@ def index():
     if request.method == "POST":
         question = request.form["question"]
 
+
+
+        chat_history.append({"role": "user", "content": question})
+
         response = client.messages.create(
             model="claude-3-haiku-20240307",
             max_tokens=500,
-            messages=[
-                {
-                    "role": "user",
-                    "content": f"""
-You are a strict data analyst.
+            messages = [
+    {
+        "role": "user",
+        "content": f"""
+You are a data analyst.
 
-Only answer using the provided data.
-If not found, say "Not found".
+Rules:
+- Use ONLY the dataset provided
+- Give SHORT, DIRECT answers
+- Do NOT list all users unless asked
+- Do NOT explain step-by-step unless asked
 
-Question:
-{question}
-
-Data:
+Dataset:
 {users}
-"""
 
-                }
-            ]
+"""
+    }
+] + chat_history
         )
 
-        response_text = response.content[0].text
+       
 
-    return render_template("index.html", response=response_text)
+        answer = response.content[0].text
+
+        chat_history.append({"role": "assistant", "content": answer})
+
+
+    return render_template("index.html", chat=chat_history)
 
 if __name__ == "__main__":
     app.run(debug=True)

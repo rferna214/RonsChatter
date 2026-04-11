@@ -1,19 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>AI User Analyzer</title>
+
+    <style>
+        body { 
+            font-family: Arial; max-width: 600px; margin: auto; 
+        }
+        input { 
+            width: 80%; padding: 8px; 
+        }
+        button { 
+            padding: 8px; 
+        }
+        p { 
+            background: #f4f4f4; padding: 8px; border-radius: 5px; 
+        }
+    </style>
+    <title>AI User Chat</title>
 </head>
 <body>
-    <h1>Ask About Your Users</h1>
+    <h1>Chat with Your Data</h1>
+
+    <div>
+        {% for message in chat %}
+            <p>
+                <strong>{{ message.role }}:</strong>
+                {{ message.content }}
+            </p>
+        {% endfor %}
+    </div>
 
     <form method="POST">
-        <textarea name="question"></textarea>
-        <button type="submit">Ask</button>
+        <input type="text" name="question" placeholder="Ask something..." required>
+        <button type="submit">Send</button>
     </form>
-
-    {% if response %}
-        <h2>Response:</h2>
-        <p>{{ response }}</p>
-    {% endif %}
 </body>
 </html>
