@@ -1,0 +1,58 @@
+ 
+body {
+    font-family: Arial;
+    max-width: 700px;
+    margin: auto;
+    background: #f9fafb;
+}
+
+h1 {
+    text-align: center;
+}
+
+.chat-box {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    height: 400px;
+    overflow-y: scroll;
+    margin-bottom: 10px;
+}
+
+.user {
+    text-align: right;
+    margin: 5px;
+}
+
+.assistant {
+    text-align: left;
+    margin: 5px;
+}
+
+.bubble {
+    display: inline-block;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.user .bubble {
+    background: #3b82f6;
+    color: white;
+}
+
+.assistant .bubble {
+    background: #e5e7eb;
+}
+
+form {
+    display: flex;
+}
+
+input {
+    flex: 1;
+    padding: 10px;
+}
+
+button {
+    padding: 10px;
+} 

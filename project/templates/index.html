@@ -1,38 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-    <style>
-        body { 
-            font-family: Arial; max-width: 600px; margin: auto; 
-        }
-        input { 
-            width: 80%; padding: 8px; 
-        }
-        button { 
-            padding: 8px; 
-        }
-        p { 
-            background: #f4f4f4; padding: 8px; border-radius: 5px; 
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <title>AI User Chat</title>
 </head>
 <body>
     <h1>Chat with Your Data</h1>
 
-    <div>
-        {% for message in chat %}
-            <p>
-                <strong>{{ message.role }}:</strong>
+<div class="chat-box">
+    {% for message in chat %}
+        <div class="{{ message.role }}">
+            <div class="bubble">
                 {{ message.content }}
-            </p>
-        {% endfor %}
-    </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
 
     <form method="POST">
         <input type="text" name="question" placeholder="Ask something..." required>
         <button type="submit">Send</button>
     </form>
+
+    <form method="POST">
+        <button name ="clear" value=""true>Clear Chat</button>
+    </form>
+
 </body>
 </html>

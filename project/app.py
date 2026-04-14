@@ -26,28 +26,24 @@ def index():
 
 
         chat_history.append({"role": "user", "content": question})
+        system_prompt = f"""
+            You are an AI data assistant.
 
+            Rules:
+            - Use ONLY the dataset
+            - Be concise
+            - No long explanations
+            - No mentioning being an AI
+
+            Dataset:
+            {users}
+            """
         response = client.messages.create(
             model="claude-3-haiku-20240307",
             max_tokens=500,
-            messages = [
-    {
-        "role": "user",
-        "content": f"""
-You are a data analyst.
-
-Rules:
-- Use ONLY the dataset provided
-- Give SHORT, DIRECT answers
-- Do NOT list all users unless asked
-- Do NOT explain step-by-step unless asked
-
-Dataset:
-{users}
-
-"""
-    }
-] + chat_history
+            messages  = [
+                {"role": "user", "content": system_prompt}
+            ] + chat_history
         )
 
        
@@ -55,7 +51,9 @@ Dataset:
         answer = response.content[0].text
 
         chat_history.append({"role": "assistant", "content": answer})
-
+        if "clear" in request.form:
+            chat_history.clear()
+            return render_template("index.html", chat=chat_history)
 
     return render_template("index.html", chat=chat_history)
 
