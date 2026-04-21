@@ -3,6 +3,10 @@ from anthropic import Anthropic
 import json
 import os
 from dotenv import load_dotenv
+from sentence_transformers import SentenceTransformer
+import numpy as np
+
+model = SentenceTransformer("all-MiniLM-L6-v2")
     
 chat_history = []
 
@@ -16,25 +20,24 @@ client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 with open("project/users.json", "r") as file:
     users = json.load(file)
 
-def find_relevant_users(users, question):
-    question = question.lower()
-    results = []
+def user_to_text(user):
+    return f"{user['first_name']} from {user['country']} is {user['age']} years old and is an {user['status']}"
 
-    for user in users:
-        # simple keyword matching
-        if "adult" in question and user["status"] == "Adult":
-            results.append(user)
-        elif "minor" in question and user["status"] == "Minor":
-            results.append(user)
-        elif user["country"].lower() in question:
-            results.append(user)
+user_texts = [user_to_text(user) for user in users]
+user_embeddings = model.encode(user_texts)
 
-    #fall back (if nothing is matched)
-    if not results:
-        return users
+def find_relevant_users_semantic(question, top_k=3):
+    question_embedding = model.encode([question])[0]
 
-    return results
+    similarities = []
 
+    for i, user_embedding in enumerate(user_embeddings):
+        score = np.dot(question_embedding, user_embedding)
+        similarities.append((score, users[i]))
+
+    similarities.sort(reverse=True, key=lambda x: x[0])
+
+    return [user for _, user in similarities[:top_k]]
 
 
 
@@ -48,7 +51,7 @@ def index():
             return render_template("index.html", chat=chat_history)
 
         question = request.form["question"]
-        filtered_users = find_relevant_users(users, question)
+        filtered_users = find_relevant_users_semantic(question)
 
         chat_history.append({"role": "user", "content": question})
         system_prompt = f"""
@@ -62,7 +65,7 @@ def index():
             """
 
         response = client.messages.create(
-            model="claude-3-haiku-20240307",
+            model="claude-haiku-4-5",
             max_tokens=500,
             messages  = [
                 {
