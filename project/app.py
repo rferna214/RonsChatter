@@ -19,12 +19,14 @@ client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
 with open("project/users.json", "r") as file:
     users = json.load(file)
+ 
+with open("project/embeddings.json", "r") as file:
+    user_embeddings = np.array(json.load(file))
 
 def user_to_text(user):
     return f"{user['first_name']} from {user['country']} is {user['age']} years old and is an {user['status']}"
 
-user_texts = [user_to_text(user) for user in users]
-user_embeddings = model.encode(user_texts)
+user_texts = [user_to_text(user) for user in users] 
 
 def find_relevant_users_semantic(question, top_k=3):
     question_embedding = model.encode([question])[0]
