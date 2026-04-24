@@ -5,6 +5,7 @@ import os
 from dotenv import load_dotenv
 from sentence_transformers import SentenceTransformer
 import numpy as np
+import faiss
 
 model = SentenceTransformer("all-MiniLM-L6-v2")
     
@@ -23,23 +24,23 @@ with open("project/users.json", "r") as file:
 with open("project/embeddings.json", "r") as file:
     user_embeddings = np.array(json.load(file))
 
+    dimension = user_embeddings.shape[1]
+    faiss_index = faiss.IndexFlatL2(dimension)
+    faiss_index.add(user_embeddings)
+    
 def user_to_text(user):
     return f"{user['first_name']} from {user['country']} is {user['age']} years old and is an {user['status']}"
 
 user_texts = [user_to_text(user) for user in users] 
 
+
+
 def find_relevant_users_semantic(question, top_k=3):
-    question_embedding = model.encode([question])[0]
+    question_embedding = model.encode([question])
 
-    similarities = []
+    distances, indices = faiss_index.search(question_embedding, top_k)
 
-    for i, user_embedding in enumerate(user_embeddings):
-        score = np.dot(question_embedding, user_embedding)
-        similarities.append((score, users[i]))
-
-    similarities.sort(reverse=True, key=lambda x: x[0])
-
-    return [user for _, user in similarities[:top_k]]
+    return [users[i] for i in indices[0]]
 
 
 
