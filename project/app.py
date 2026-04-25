@@ -58,24 +58,32 @@ def index():
 
         chat_history.append({"role": "user", "content": question})
         system_prompt = f"""
-            You are a data analyst.
+                You are a strict data analyst.
 
-            Use ONLY this filtered dataset:
+                Rules:
+                - ONLY use the provided dataset
+                - DO NOT make up information
+                - If the answer is not in the data, say "Not found in dataset"
+                - Keep answers short and clear
 
-            {filtered_users}
+                When answering:
+                - If it's a count → return just the number
+                - If it's a list → return bullet points
+                - If it's an explanation → keep under 3 sentences
 
-            Answer the question clearly and concisely.
-            """
+                Dataset:
+                {filtered_users}
+
+                Question:
+                {question}
+                """
 
         response = client.messages.create(
             model="claude-haiku-4-5",
             max_tokens=500,
-            messages  = [
-                {
-                    "role": "user", 
-                    "content": system_prompt
-                    }
-            ] + chat_history
+            messages = [
+                    {"role": "user", "content": system_prompt}
+                ]
         )
 
     
