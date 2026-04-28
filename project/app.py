@@ -29,8 +29,13 @@ with open("project/embeddings.json", "r") as file:
     faiss_index.add(user_embeddings)
     
 def user_to_text(user):
-    return f"{user['first_name']} from {user['country']} is {user['age']} years old and is an {user['status']}"
+    text = ""
 
+    for key, value in user.items():
+        text += f"{key}: {value} "
+
+    return text
+    
 user_texts = [user_to_text(user) for user in users] 
 
 
@@ -48,6 +53,27 @@ def find_relevant_users_semantic(question, top_k=3):
 def index(): 
 
     if request.method == "POST":
+
+        if "file" in request.files:
+            file = request.files["file"]
+
+            if file.filename != "":
+                data = json.load(file)
+
+                global users, user_embeddings, faiss_index
+
+                users = data
+
+                # rebuild embeddings
+                user_texts = [user_to_text(user) for user in users]
+                user_embeddings = model.encode(user_texts)
+
+                # rebuild FAISS index
+                dimension = user_embeddings.shape[1]
+                faiss_index = faiss.IndexFlatL2(dimension)
+                faiss_index.add(user_embeddings)
+
+                return render_template("index.html", chat=chat_history)
 
         if "clear" in request.form:
             chat_history.clear()
