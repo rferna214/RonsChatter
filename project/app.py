@@ -84,21 +84,19 @@ def index():
 
         chat_history.append({"role": "user", "content": question})
         system_prompt = f"""
-                You are a strict data analyst.
+        You are a data analyst.
 
-                Rules:
-                - ONLY use the provided dataset
-                - DO NOT make up information
-                - If the answer is not in the data, say "Not found in dataset"
-                - Keep answers short and clear
+        You are having a conversation with a user about a dataset.
 
-                When answering:
-                - If it's a count → return just the number
-                - If it's a list → return bullet points
-                - If it's an explanation → keep under 3 sentences
+        Rules:
+        - ONLY use the dataset provided
+        - Use previous messages for context if needed
+        - Do NOT make up information
+        - If not found, say "Not found in dataset"
 
                 Dataset:
-                {filtered_users}
+                {filtered_users} 
+        
 
                 Question:
                 {question}
@@ -109,7 +107,7 @@ def index():
             max_tokens=500,
             messages = [
                     {"role": "user", "content": system_prompt}
-                ]
+                ] + chat_history
         )
 
     
